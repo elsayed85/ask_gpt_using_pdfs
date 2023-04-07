@@ -2,11 +2,17 @@
 
 use App\Services\Ai;
 use App\Services\Assistant;
+use App\Services\Md2Json;
 use App\Services\PdfParser;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
+use Invis1ble\MediaIntelligence\VideoToFacts\Application;
 use Pdf2text\Pdf2text;
 use Spatie\PdfToText\Pdf;
+use Symfony\Component\Process\Process;
+use YoutubeDl\Options;
+use YoutubeDl\YoutubeDl;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,33 +26,44 @@ use Spatie\PdfToText\Pdf;
 */
 
 Route::get('/', function () {
-    $start = 12;
-    $end = 14;
+    $video_id = "Aq2tGqq-sJU";
+    $audioTargetDirectoryPath = storage_path('app/audio');
+    $file = "{$audioTargetDirectoryPath}/{$video_id}.mp3";
 
-    // track time
-    $start_time = microtime(true);
-    $times[0]['start'] = $start_time;
-    $assistant = (new Assistant())
-        ->file(storage_path('app/queue.pdf'))
-        ->limit($start, $end)
-        ->process();
+    if (!file_exists($file)) {
+        $yt = new YoutubeDl();
+        $yt->setBinPath("C:\yt-dlp\yt-dlp.exe");
+        $collection = $yt->download(
+            Options::create()
+                ->downloadPath($audioTargetDirectoryPath)
+                ->ffmpegLocation('C:\ffmpeg\bin\ffmpeg.exe')
+                ->extractAudio(true)
+                ->audioFormat('mp3')
+                ->audioQuality(2)
+                ->output('%(id)s.%(ext)s')
+                ->url('https://www.youtube.com/watch?v=' . $video_id)
+        );
 
-        
-    $times[0]['end'] = microtime(true);
-    $times[0]['seconds'] = $times[0]['end'] - $times[0]['start'];
+        $file = $collection->getVideos()[0]->getFile()->getPathname();
+    }
 
-    $times[1]['start'] = microtime(true);
-    $question1 = 'Why Use a Message Queue';
-    $answer1 = $assistant->ask($question1);
-    $times[1]['end'] = microtime(true);
-    $times[1]['seconds'] = $times[1]['end'] - $times[1]['start'];
+    $response = Http::withToken(config('services.openai.token'))
+        ->timeout(999999999999999)
+        ->asMultipart()
+        ->withOptions(['verify' => false])
+        ->post("https://api.openai.com/v1/audio/transcriptions", [
+            'model' => 'whisper-1',
+            'file' => fopen($file, 'r'),
+            'response_format' => 'verbose_json',
+        ])
+        ->json();
 
-    $times[2]['start'] = microtime(true);
-    $question2 = 'Why Use a Message Queue';
-    $answer2 = $assistant->ask($question2);
-    $times[2]['end'] = microtime(true);
-    $times[2]['seconds'] = $times[2]['end'] - $times[2]['start'];
+    $inputs = collect($response['segments'])->pluck('text')->toArray();
 
+    dd($inputs);
 
-    dd($times, $answer1, $answer2);
+    // $json = Md2Json::convertFile(storage_path('app/laravelDocs/artisan.md'));
+    $assistant = (new Assistant())->pdf(storage_path('app/intro.pdf'))->ai(1)->process();
+    $reply = $assistant->ask("when the protein doesn't bind upstream from the lac operon ?");
+    dd($reply);
 });

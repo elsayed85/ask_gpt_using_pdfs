@@ -54,6 +54,7 @@ class PdfParser
             'simple2',
             '-raw',
             'nopgbrk',
+            "-enc UTF-8",
         ];
 
         if ($this->startPage) {
@@ -75,7 +76,7 @@ class PdfParser
     private function getText()
     {
         try {
-            $this->text =  Pdf::getText($this->file, $this->binPath, $this->getOptions());
+            $this->text = Pdf::getText($this->file, $this->binPath, $this->getOptions());
         } catch (\Exception $e) {
             $this->errors[] = $e->getMessage();
         }

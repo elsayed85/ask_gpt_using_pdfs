@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "de62a831824e833388c1be142960f6cb",
+    "content-hash": "171caafd3f23ce5b35add13ea805cc72",
     "packages": [
         {
             "name": "brick/math",
@@ -520,6 +520,68 @@
                 }
             ],
             "time": "2023-01-02T17:26:14+00:00"
+        },
+        {
+            "name": "elsayed85/media-intelligence",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/elsayed85/media-intelligence.git",
+                "reference": "955e213cd71b85b362d906a7c7a80adcae96929e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/elsayed85/media-intelligence/zipball/955e213cd71b85b362d906a7c7a80adcae96929e",
+                "reference": "955e213cd71b85b362d906a7c7a80adcae96929e",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^7.5@dev",
+                "php": ">=8.0",
+                "psr/http-client": "^1.0@dev",
+                "psr/http-factory": "^1.0@dev",
+                "psr/http-message": "^1.0@dev",
+                "psr/log": "^3.0@dev"
+            },
+            "require-dev": {
+                "monolog/monolog": "^3.0@dev"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Invis1ble\\MediaIntelligence\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Invis1ble",
+                    "email": "Invis1ble@users.noreply.github.com"
+                }
+            ],
+            "description": "A library for processing and analyzing media content, providing tools for audio, video, and text analysis.",
+            "keywords": [
+                "analysis",
+                "audio-processing",
+                "davinci",
+                "gpt",
+                "intelligence",
+                "media",
+                "openai",
+                "text-processing",
+                "translation",
+                "video-processing",
+                "whisper-ai",
+                "youtube"
+            ],
+            "support": {
+                "source": "https://github.com/elsayed85/media-intelligence/tree/main"
+            },
+            "time": "2023-04-07T18:36:54+00:00"
         },
         {
             "name": "fruitcake/php-cors",
@@ -2205,6 +2267,68 @@
             "time": "2023-03-05T19:49:14+00:00"
         },
         {
+            "name": "norkunas/youtube-dl-php",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/norkunas/youtube-dl-php.git",
+                "reference": "074ad0395a6426856c6904a0be69abbbe5f4059b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/norkunas/youtube-dl-php/zipball/074ad0395a6426856c6904a0be69abbbe5f4059b",
+                "reference": "074ad0395a6426856c6904a0be69abbbe5f4059b",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": ">=7.4.0",
+                "symfony/filesystem": "^4.4|^5.1|^6.0",
+                "symfony/polyfill-php80": "^1.26",
+                "symfony/process": "^4.4|^5.1|^6.0"
+            },
+            "require-dev": {
+                "mikey179/vfsstream": "^1.6.10",
+                "php-cs-fixer/shim": "^3.9",
+                "phpstan/phpstan": "^1.8",
+                "phpstan/phpstan-phpunit": "^1.1",
+                "symfony/phpunit-bridge": "^6.1"
+            },
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "YoutubeDl\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tomas Norkūnas",
+                    "email": "norkunas.tom@gmail.com"
+                }
+            ],
+            "description": "youtube-dl / yt-dlp wrapper for php",
+            "keywords": [
+                "youtube",
+                "youtube-dl",
+                "yt-dlp"
+            ],
+            "support": {
+                "issues": "https://github.com/norkunas/youtube-dl-php/issues",
+                "source": "https://github.com/norkunas/youtube-dl-php/tree/master"
+            },
+            "time": "2023-03-27T14:34:27+00:00"
+        },
+        {
             "name": "nunomaduro/termwind",
             "version": "v1.15.1",
             "source": {
@@ -3547,6 +3671,69 @@
                 }
             ],
             "time": "2022-01-02T09:55:41+00:00"
+        },
+        {
+            "name": "symfony/filesystem",
+            "version": "v6.0.19",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/filesystem.git",
+                "reference": "3d49eec03fda1f0fc19b7349fbbe55ebc1004214"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/filesystem/zipball/3d49eec03fda1f0fc19b7349fbbe55ebc1004214",
+                "reference": "3d49eec03fda1f0fc19b7349fbbe55ebc1004214",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.0.2",
+                "symfony/polyfill-ctype": "~1.8",
+                "symfony/polyfill-mbstring": "~1.8"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Filesystem\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Provides basic utilities for the filesystem",
+            "homepage": "https://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/filesystem/tree/v6.0.19"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2023-01-20T17:44:14+00:00"
         },
         {
             "name": "symfony/finder",
@@ -8136,7 +8323,10 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "elsayed85/media-intelligence": 20,
+        "norkunas/youtube-dl-php": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

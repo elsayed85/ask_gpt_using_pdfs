@@ -14,9 +14,17 @@ class Assistant
     public $end = null;
     public $file_name;
     public $inputs = [];
+    public $attachAiAnswer = false;
     public AiAssistant $ai;
 
-    public function file($file)
+    public function ai($attachAiAnswer = true)
+    {
+        $this->attachAiAnswer = $attachAiAnswer;
+
+        return $this;
+    }
+
+    public function pdf($file)
     {
         $this->file = $file;
         $this->file_name = pathinfo($file, PATHINFO_FILENAME);
@@ -35,9 +43,11 @@ class Assistant
         $pdf_content = storage_path("app/{$this->file_name}_content.json");
 
         if (file_exists($pdf_content)) {
+            $inputs = json_decode(file_get_contents($pdf_content), true);
             $this->ai = (new AiAssistant())
                 ->setInputsFileName("{$this->file_name}.json")
-                ->setPrompts(json_decode(file_get_contents($pdf_content), true));
+                ->setPrompts($inputs)
+                ->attachAiAnswer($this->attachAiAnswer);
 
             return $this;
         }
@@ -50,13 +60,15 @@ class Assistant
 
         if (!$pdf->hasErrors()) {
             $inputs = $pdf->getOutput();
+
             Storage::put("{$this->file_name}_content.json", json_encode($inputs)); // save to storage for later use
 
             $this->inputs = $inputs;
 
             $this->ai = (new AiAssistant())
                 ->setInputsFileName("{$this->file_name}.json")
-                ->setPrompts($this->inputs);
+                ->setPrompts($this->inputs)
+                ->attachAiAnswer($this->attachAiAnswer);
 
             return $this;
         }

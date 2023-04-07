@@ -37,9 +37,9 @@ class AiAssistant
         return $this;
     }
 
-    public function attachAiAnswer()
+    public function attachAiAnswer($attachAiAnswer = false)
     {
-        $this->attachAiAnswer = true;
+        $this->attachAiAnswer = $attachAiAnswer;
 
         return $this;
     }
