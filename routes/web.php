@@ -25,7 +25,7 @@ use YoutubeDl\YoutubeDl;
 |
 */
 
-Route::get('/', function () {
+Route::get("video", function () {
     $video_id = "Aq2tGqq-sJU";
     $audioTargetDirectoryPath = storage_path('app/audio');
     $file = "{$audioTargetDirectoryPath}/{$video_id}.mp3";
@@ -61,9 +61,19 @@ Route::get('/', function () {
     $inputs = collect($response['segments'])->pluck('text')->toArray();
 
     dd($inputs);
+});
 
-    // $json = Md2Json::convertFile(storage_path('app/laravelDocs/artisan.md'));
+Route::get('/', function () {
+    // steps :
+    // 1- get pdf file
+    // 2- convert pdf to text
+    // 3- convert text to json
+    // 4- generate embedings for each paragraph
+    // 5- generate embedings for question
+    // 6- compare embedings
+    // 8- get the answer from the most similar paragraph
+    // 9- return the answer with chatgpt completions to make it more natural and human like :)
     $assistant = (new Assistant())->pdf(storage_path('app/intro.pdf'))->ai(1)->process();
-    $reply = $assistant->ask("when the protein doesn't bind upstream from the lac operon ?");
+    $reply = $assistant->ask("ما الفرق بين ال Rna وال Dna ؟");
     dd($reply);
 });
